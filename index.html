@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>منصة تكاتف | مشروع تخرج نظم معلومات</title>
+<style>
+body{margin:0;font-family:Tahoma;background:#f2f4f7}
+header{background:#1e88e5;color:#fff;padding:15px;text-align:center}
+nav{background:#1565c0;padding:10px;display:flex;justify-content:space-around}
+nav button{background:none;border:none;color:white;font-size:15px;cursor:pointer}
+section{display:none;padding:20px}
+.active{display:block}
+.card{background:white;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+.btn{background:#1e88e5;color:white;border:none;padding:8px 15px;border-radius:5px;cursor:pointer}
+.btn.red{background:#e53935}
+.progress{background:#ddd;border-radius:10px;overflow:hidden}
+.progress div{background:#43a047;height:15px}
+footer{text-align:center;color:#666;padding:10px}
+input{padding:7px;width:80%;margin-bottom:10px}
+</style>
+</head>
+
+<body>
+<header>
+<h1>منصة تكاتف</h1>
+<p>نظام ذكي لإدارة المهام والتعاون الوظيفي</p>
+</header>
+
+<nav>
+<button onclick="show('dashboard')">لوحة التحكم</button>
+<button onclick="show('tasks')">المهام</button>
+<button onclick="show('help')">طلب فزعة</button>
+<button onclick="show('volunteer')">التطوع</button>
+<button onclick="show('points')">النقاط</button>
+</nav>
+
+<section id="dashboard" class="active">
+<h2>📊 ضغط العمل</h2>
+<div class="card">
+<b>الموظفة:</b> جواهر<br>
+عدد المهام: 6
+<div class="progress"><div style="width:80%"></div></div>
+نسبة الإنجاز: 80%
+</div>
+
+<div class="card">
+<b>الموظفة:</b> ريم<br>
+عدد المهام: 2
+<div class="progress"><div style="width:40%"></div></div>
+نسبة الإنجاز: 40%
+</div>
+
+<div class="card">⚠️ تنبيه: جواهر لديها ضغط عمل مرتفع</div>
+</section>
+
+<section id="tasks">
+<h2>📋 إدارة المهام</h2>
+<div id="taskList">
+<div class="card">إعداد تقرير شهري – قيد التنفيذ</div>
+<div class="card">مراجعة بيانات النظام – متأخرة</div>
+</div>
+
+<input type="text" id="newTask" placeholder="اكتبي اسم المهمة الجديدة">
+<br>
+<button class="btn" onclick="addTask()">إضافة مهمة</button>
+</section>
+
+<section id="help">
+<h2>🤝 طلب فزعة</h2>
+<div class="card">
+<p>هل تشعرين بضغط في العمل؟</p>
+<button class="btn red" onclick="requestHelp()">طلب مساعدة</button>
+<p id="helpMsg"></p>
+</div>
+</section>
+
+<section id="volunteer">
+<h2>🙋‍♀️ التطوع</h2>
+<div class="card">
+مهمة متأخرة: مراجعة البيانات
+<br><br>
+<button class="btn" onclick="volunteer()">التطوع للمساعدة</button>
+</div>
+</section>
+
+<section id="points">
+<h2>⭐ نظام النقاط</h2>
+<div class="card">
+رصيدك الحالي: <b id="points">120</b> نقطة<br>
+احصلي على نقاط عند مساعدة زميلاتك
+</div>
+</section>
+
+<footer>© 2026 منصة تكاتف – مشروع تخرج نظم المعلومات</footer>
+
+<script>
+function show(id){
+ document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function addTask(){
+ let task=document.getElementById('newTask').value;
+ if(task===""){alert("الرجاء إدخال اسم المهمة");return;}
+ let div=document.createElement('div');
+ div.className="card";
+ div.innerText=task+" – جديدة";
+ document.getElementById('taskList').appendChild(div);
+ document.getElementById('newTask').value="";
+ alert("تمت إضافة المهمة بنجاح ✅");
+}
+
+function requestHelp(){
+ document.getElementById('helpMsg').innerText="تم إرسال طلب الفزعة بنجاح وسيتم إشعار الفريق 🤝";
+ let p=document.getElementById('points');
+ p.innerText=parseInt(p.innerText)+10;
+}
+
+function volunteer(){
+ alert("تم تسجيل تطوعك بنجاح ✅");
+ let p=document.getElementById('points');
+ p.innerText=parseInt(p.innerText)+20;
+}
+</script>
+</body>
+</html>
