@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>🎮 رحلة جواهر 23</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Tahoma;
+  background: #ffd6e8;
+  text-align: center;
+}
+#game {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: #87ceeb;
+  overflow: hidden;
+}
+#player {
+  width: 30px;
+  height: 30px;
+  background: #ff1493;
+  position: absolute;
+  left: 40px;
+  top: 220px;
+}
+#ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: #654321;
+}
+.controls {
+  margin-top: 10px;
+}
+button {
+  font-size: 24px;
+  padding: 15px 25px;
+  margin: 5px;
+  border: none;
+  border-radius: 12px;
+  background: #ff69b4;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h3>🎂 رحلة جواهر – 23 🎉</h3>
+
+<div id="game">
+  <div id="player"></div>
+  <div id="ground"></div>
+</div>
+
+<div class="controls">
+  <button ontouchstart="left=true" ontouchend="left=false">⬅️</button>
+  <button ontouchstart="jumpPlayer()">⬆️</button>
+  <button ontouchstart="right=true" ontouchend="right=false">➡️</button>
+</div>
+
+<script>
+let player = document.getElementById("player");
+let x = 40, y = 220;
+let speedY = 0;
+let jumping = false;
+let left = false, right = false;
+
+function jumpPlayer(){
+  if(!jumping){
+    speedY = -14;
+    jumping = true;
+  }
+}
+
+function gameLoop(){
+  if(left) x -= 3;
+  if(right) x += 3;
+
+  speedY += 1;
+  y += speedY;
+
+  if(y >= 220){
+    y = 220;
+    speedY = 0;
+    jumping = false;
+  }
+
+  player.style.left = x + "px";
+  player.style.top = y + "px";
+
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+
+</body>
+</html>
